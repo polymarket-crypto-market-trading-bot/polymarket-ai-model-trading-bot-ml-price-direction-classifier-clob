@@ -1,0 +1,48 @@
+{
+  "name": "kucoin-whale-copy-trading-bot",
+  "version": "1.0.0",
+  "description": "Production-grade KuCoin whale copy trading bot with real-time detection and risk-managed execution",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "bot": "tsx src/index.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "kucoin",
+    "whale",
+    "copy-trading",
+    "crypto",
+    "trading-bot",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.9.0",
+    "decimal.js": "^10.5.0",
+    "dotenv": "^16.5.0",
+    "pino": "^9.6.0",
+    "pino-pretty": "^13.0.0",
+    "ws": "^8.18.2",
+    "zod": "^3.25.28"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "@types/ws": "^8.18.1",
+    "tsx": "^4.19.4",
+    "ioredis-om": "^5.10.2",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.4"
+  }
+}
