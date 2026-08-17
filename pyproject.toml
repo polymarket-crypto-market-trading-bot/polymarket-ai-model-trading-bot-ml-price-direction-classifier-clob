@@ -1,0 +1,14 @@
+[project]
+name = "polymarket-trading-bot"
+version = "1.0.0"
+description = "Polymarket Trading Bot — AI Model Trading Bot for Prediction Markets"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+polymarket-bot = "bot.__main__:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

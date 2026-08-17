@@ -1,0 +1,23 @@
+services:
+  polymarket-bot:
+    build: .
+    container_name: polymarket-trading-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./exports:/app/exports
+      - ./models/artifacts:/app/models/artifacts
+    command: ["python", "-m", "bot", "paper", "--interval", "60"]
+
+  # Optional: run training on startup for a specific market
+  # polymarket-train:
+  #   build: .
+  #   env_file:
+  #     - .env
+  #   volumes:
+  #     - ./data:/app/data
+  #     - ./models/artifacts:/app/models/artifacts
+  #   command: ["python", "-m", "bot", "train", "--market-id", "YOUR_MARKET_ID"]

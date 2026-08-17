@@ -1,7 +1,38 @@
-node_modules/
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
 dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environment & secrets
 .env
+
+# Data & artifacts
+data/cache/
+data/db/
+models/artifacts/
+logs/
+exports/
 *.log
-coverage/
+*.sqlite
+*.db
+
+# IDE
 .DS_Store
-*.tsbuildinfo
+.vscode/
+.idea/
+
+# Coverage
+htmlcov/
+.coverage
+coverage/

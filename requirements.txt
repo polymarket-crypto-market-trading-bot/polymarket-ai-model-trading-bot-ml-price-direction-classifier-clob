@@ -1,0 +1,35 @@
+# Core
+python-dotenv>=1.0.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+
+# Data & ML
+pandas>=2.1.0
+numpy>=1.26.0
+scikit-learn>=1.4.0
+xgboost>=2.0.0
+
+# Optional sequence model (install with: pip install torch)
+# torch>=2.1.0
+
+# HTTP & WebSocket
+httpx>=0.27.0
+websocket-client>=1.7.0
+tenacity>=8.2.0
+
+# Storage
+sqlalchemy>=2.0.0
+
+# CLI & logging
+rich>=13.7.0
+click>=8.1.0
+
+# Plotting (evaluation reports)
+matplotlib>=3.8.0
+
+# Testing
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
+
+# Live trading (optional)
+py-clob-client>=0.34.0
