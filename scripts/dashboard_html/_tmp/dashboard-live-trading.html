@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Live</title>
+<style>/* Shared premium dashboard styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #030712;
+  color: #f8fafc;
+  width: 1600px;
+  height: 900px;
+  overflow: hidden;
+}
+
+.dashboard {
+  width: 1600px;
+  height: 900px;
+  position: relative;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 0%, rgba(99,102,241,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 90% 100%, rgba(16,185,129,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(139,92,246,0.06) 0%, transparent 60%),
+    linear-gradient(165deg, #030712 0%, #0f172a 40%, #020617 100%);
+}
+
+.grid-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(148,163,184,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148,163,184,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* ── Top bar ── */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 36px;
+  border-bottom: 1px solid rgba(148,163,184,0.1);
+  background: rgba(15,23,42,0.6);
+  backdrop-filter: blur(20px);
+  position: relative; z-index: 10;
+}
+.topbar::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6, #10b981, #6366f1);
+}
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand-icon {
+  width: 42px; height: 42px; border-radius: 12px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; font-weight: 800; color: white;
+  box-shadow: 0 8px 32px rgba(99,102,241,0.4);
+}
+.brand h1 { font-size: 20px; font-weight: 800; letter-spacing: -0.02em; }
+.brand p { font-size: 11px; color: #94a3b8; margin-top: 2px; font-weight: 500; }
+.pills { display: flex; gap: 10px; }
+.pill {
+  padding: 8px 16px; border-radius: 999px; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  border: 1px solid; backdrop-filter: blur(8px);
+}
+.pill-live { background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.4); color: #34d399; }
+.pill-paper { background: rgba(251,191,36,0.12); border-color: rgba(251,191,36,0.4); color: #fbbf24; }
+.pill-clob { background: rgba(99,102,241,0.12); border-color: rgba(99,102,241,0.4); color: #a5b4fc; }
+.pill-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; animation: pulse 2s infinite; }
+.pill-live .pill-dot { background: #10b981; box-shadow: 0 0 8px #10b981; }
+.pill-paper .pill-dot { background: #fbbf24; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+/* ── Content grid ── */
+.content { padding: 24px 36px; display: flex; flex-direction: column; gap: 20px; height: calc(900px - 85px); }
+
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.kpi {
+  background: rgba(15,23,42,0.7);
+  border: 1px solid rgba(148,163,184,0.12);
+  border-radius: 16px; padding: 20px 22px;
+  position: relative; overflow: hidden;
+  backdrop-filter: blur(12px);
+  transition: transform 0.2s;
+}
+.kpi::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.kpi-green::before { background: linear-gradient(90deg, #10b981, #34d399); }
+.kpi-blue::before { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+.kpi-purple::before { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+.kpi-red::before { background: linear-gradient(90deg, #ef4444, #f87171); }
+.kpi-gold::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.kpi-label { font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.08em; }
+.kpi-value { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; margin: 8px 0 4px; }
+.kpi-green .kpi-value { color: #34d399; text-shadow: 0 0 40px rgba(52,211,153,0.3); }
+.kpi-blue .kpi-value { color: #60a5fa; }
+.kpi-purple .kpi-value { color: #a78bfa; }
+.kpi-red .kpi-value { color: #f87171; }
+.kpi-gold .kpi-value { color: #fbbf24; }
+.kpi-sub { font-size: 11px; color: #64748b; font-weight: 500; }
+
+.main-row { display: grid; gap: 16px; flex: 1; min-height: 0; }
+.main-row-58 { grid-template-columns: 1.4fr 1fr; }
+.main-row-37 { grid-template-columns: 1fr 1.2fr; }
+.main-row-55 { grid-template-columns: 1fr 1fr; }
+
+.panel {
+  background: rgba(15,23,42,0.65);
+  border: 1px solid rgba(148,163,184,0.1);
+  border-radius: 16px; padding: 22px 24px;
+  backdrop-filter: blur(12px);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.panel-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+}
+.panel-title { font-size: 14px; font-weight: 700; color: #e2e8f0; }
+.panel-badge {
+  font-size: 10px; font-weight: 600; padding: 4px 10px; border-radius: 6px;
+  background: rgba(99,102,241,0.15); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.25);
+}
+
+/* ── Table ── */
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+thead th {
+  text-align: left; padding: 10px 12px; font-size: 10px; font-weight: 700;
+  color: #64748b; text-transform: uppercase; letter-spacing: 0.06em;
+  border-bottom: 1px solid rgba(148,163,184,0.1);
+}
+tbody tr { border-bottom: 1px solid rgba(148,163,184,0.05); }
+tbody tr:hover { background: rgba(99,102,241,0.04); }
+tbody td { padding: 12px; color: #cbd5e1; vertical-align: middle; }
+.mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+
+.tag {
+  display: inline-block; padding: 4px 10px; border-radius: 6px;
+  font-size: 10px; font-weight: 800; letter-spacing: 0.04em;
+}
+.tag-yes { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+.tag-no { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+.tag-up { background: rgba(16,185,129,0.15); color: #34d399; }
+.tag-down { background: rgba(239,68,68,0.15); color: #f87171; }
+.tag-hold { background: rgba(100,116,139,0.15); color: #94a3b8; }
+
+.pnl-pos { color: #34d399; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.pnl-neg { color: #f87171; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+.price { color: #22d3ee; font-family: 'JetBrains Mono', monospace; font-weight: 600; }
+
+/* ── Progress bar ── */
+.conf-bar { display: flex; align-items: center; gap: 8px; }
+.conf-track { width: 80px; height: 6px; background: rgba(148,163,184,0.1); border-radius: 999px; overflow: hidden; }
+.conf-fill { height: 100%; border-radius: 999px; }
+.conf-fill-green { background: linear-gradient(90deg, #10b981, #34d399); }
+.conf-fill-red { background: linear-gradient(90deg, #ef4444, #f87171); }
+.conf-fill-gray { background: #64748b; }
+.conf-pct { font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; min-width: 32px; }
+
+.action-btn {
+  display: inline-block; padding: 5px 12px; border-radius: 8px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.02em;
+  border: 1px solid;
+}
+.action-buy-yes { background: rgba(16,185,129,0.12); color: #34d399; border-color: rgba(16,185,129,0.35); }
+.action-buy-no { background: rgba(239,68,68,0.12); color: #f87171; border-color: rgba(239,68,68,0.35); }
+.action-hold { background: rgba(100,116,139,0.1); color: #94a3b8; border-color: rgba(100,116,139,0.2); }
+
+/* ── Stat sidebar ── */
+.stat-list { display: flex; flex-direction: column; gap: 0; flex: 1; }
+.stat-item {
+  padding: 16px 0; border-bottom: 1px solid rgba(148,163,184,0.08);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.stat-item:last-child { border-bottom: none; }
+.stat-label { font-size: 12px; color: #64748b; font-weight: 500; }
+.stat-val { font-size: 18px; font-weight: 800; letter-spacing: -0.02em; }
+
+/* ── Position cards ── */
+.pos-card {
+  background: rgba(30,41,59,0.5); border: 1px solid rgba(148,163,184,0.1);
+  border-radius: 12px; padding: 16px 18px; margin-bottom: 12px;
+}
+.pos-title { font-size: 13px; font-weight: 600; color: #e2e8f0; margin-bottom: 10px; }
+.pos-row { display: flex; align-items: center; justify-content: space-between; }
+.pos-price { font-size: 12px; color: #94a3b8; font-family: 'JetBrains Mono', monospace; }
+.pos-pnl { font-size: 20px; font-weight: 800; color: #34d399; }
+
+/* ── Checklist ── */
+.checklist { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.check {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 600; color: #34d399;
+  background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2);
+  padding: 6px 12px; border-radius: 8px;
+}
+.check-icon { font-size: 13px; }
+
+/* ── Heatmap ── */
+.heatmap { display: grid; grid-template-columns: repeat(12, 1fr); gap: 6px; margin-top: 8px; }
+.heat-cell {
+  text-align: center; padding: 10px 4px; border-radius: 8px;
+  font-size: 10px; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+}
+.heat-pos-high { background: rgba(16,185,129,0.35); color: #6ee7b7; }
+.heat-pos { background: rgba(16,185,129,0.15); color: #34d399; }
+.heat-neg { background: rgba(239,68,68,0.2); color: #f87171; }
+
+.market-list { list-style: none; }
+.market-list li {
+  padding: 10px 0; border-bottom: 1px solid rgba(148,163,184,0.06);
+  font-size: 12px; color: #94a3b8; display: flex; align-items: center; gap: 8px;
+}
+.market-list li::before { content: '◆'; color: #6366f1; font-size: 8px; }
+
+/* ── Architecture ── */
+.arch-layer { font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+.arch-grid { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.arch-box {
+  background: rgba(30,41,59,0.8); border: 1px solid rgba(148,163,184,0.15);
+  border-radius: 12px; padding: 14px 16px; min-width: 130px; text-align: center;
+  position: relative;
+}
+.arch-box-title { font-size: 11px; font-weight: 800; margin-bottom: 6px; }
+.arch-box-sub { font-size: 9px; color: #64748b; line-height: 1.4; }
+.arch-arrow { color: #10b981; font-size: 18px; font-weight: 700; }
+.arch-indigo { border-color: rgba(99,102,241,0.4); } .arch-indigo .arch-box-title { color: #a5b4fc; }
+.arch-blue { border-color: rgba(59,130,246,0.4); } .arch-blue .arch-box-title { color: #60a5fa; }
+.arch-cyan { border-color: rgba(34,211,238,0.4); } .arch-cyan .arch-box-title { color: #22d3ee; }
+.arch-purple { border-color: rgba(139,92,246,0.4); } .arch-purple .arch-box-title { color: #a78bfa; }
+.arch-gold { border-color: rgba(245,158,11,0.4); } .arch-gold .arch-box-title { color: #fbbf24; }
+.arch-green { border-color: rgba(16,185,129,0.4); } .arch-green .arch-box-title { color: #34d399; }
+.arch-red { border-color: rgba(239,68,68,0.4); } .arch-red .arch-box-title { color: #f87171; }
+
+.feature-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.feature-name { font-size: 11px; color: #94a3b8; width: 140px; text-align: right; font-family: 'JetBrains Mono', monospace; }
+.feature-bar { flex: 1; height: 8px; background: rgba(148,163,184,0.08); border-radius: 999px; overflow: hidden; }
+.feature-fill { height: 100%; border-radius: 999px; }
+.feature-pct { font-size: 11px; font-weight: 700; color: #e2e8f0; width: 36px; font-family: 'JetBrains Mono', monospace; }
+
+.metric-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 16px; }
+.metric-mini {
+  background: rgba(30,41,59,0.6); border-radius: 10px; padding: 12px;
+  border: 1px solid rgba(148,163,184,0.08); text-align: center;
+}
+.metric-mini-label { font-size: 9px; color: #64748b; font-weight: 700; text-transform: uppercase; }
+.metric-mini-val { font-size: 18px; font-weight: 800; margin-top: 4px; }
+
+svg { display: block; }
+</style></head>
+<body><div class="dashboard"><div class="grid-bg"></div>
+<div class="topbar">
+  <div class="brand"><div class="brand-icon">▶</div><div><h1>Live Trading Operations</h1><p>Polymarket CLOB · Polygon · USDC · Risk Controls Active</p></div></div>
+  <div class="pills"><span class="pill pill-live"><span class="pill-dot"></span>LIVE</span><span class="pill pill-clob">CLOB ✓</span></div>
+</div>
+<div class="content">
+  <div class="kpi-row">
+    <div class="kpi kpi-green"><div class="kpi-label">Daily Loss Used</div><div class="kpi-value">$12.40</div><div class="kpi-sub">of $50 USDC limit</div></div>
+    <div class="kpi kpi-blue"><div class="kpi-label">Open Positions</div><div class="kpi-value">2 / 3</div><div class="kpi-sub">Polymarket markets</div></div>
+    <div class="kpi kpi-green"><div class="kpi-label">Circuit Breaker</div><div class="kpi-value">OFF ✓</div><div class="kpi-sub">0 consecutive losses</div></div>
+    <div class="kpi kpi-gold"><div class="kpi-label">Stake / Trade</div><div class="kpi-value">$25</div><div class="kpi-sub">USDC fixed sizing</div></div>
+  </div>
+  <div class="main-row main-row-55" style="flex:1">
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">Open Polymarket Positions</span></div>
+      <div class="pos-card"><div class="pos-title">Will BTC hit $150k in 2026?</div><div class="pos-row"><span class="tag tag-yes">YES</span><span class="pos-price">0.61 → 0.64</span><span class="pos-pnl">+$4.20</span></div></div>
+      <div class="pos-card"><div class="pos-title">Fed rate cut Q1 2026?</div><div class="pos-row"><span class="tag tag-yes">YES</span><span class="pos-price">0.58 → 0.62</span><span class="pos-pnl">+$3.10</span></div></div>
+      <div class="checklist">
+        <span class="check"><span class="check-icon">✓</span> Paper tested 48h</span>
+        <span class="check"><span class="check-icon">✓</span> Backtest verified</span>
+        <span class="check"><span class="check-icon">✓</span> Risk limits set</span>
+        <span class="check"><span class="check-icon">✓</span> CLOB creds loaded</span>
+        <span class="check"><span class="check-icon">✓</span> ENABLE_LIVE_TRADING</span>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><span class="panel-title">30-Day USDC PnL — Polymarket Live</span></div>
+      <div style="flex:1">
+<svg viewBox="0 0 500 160" width="100%" height="100%">
+  <rect x="10" y="80" width="14" height="70" rx="3" fill="#34d399" opacity="0.85"/>
+  <rect x="30" y="60" width="14" height="90" rx="3" fill="#34d399" opacity="0.85"/>
+  <rect x="50" y="90" width="14" height="60" rx="3" fill="#34d399" opacity="0.85"/>
+  <rect x="70" y="45" width="14" height="105" rx="3" fill="#34d399" opacity="0.85"/>
+  <rect x="90" y="70" width="14" height="80" rx="3" fill="#34d399" opacity="0.85"/>
+  <rect x="110" y="35" width="14" height="115" rx="3" fill="#34d399" opacity="0.85"/>
+  <rect x="130" y="55" width="14" height="95" rx="3" fill="#34d399" opacity="0.85"/>
+  <rect x="150" y="25" width="14" height="125" rx="3" fill="#34d399" opacity="0.85"/>
+  <rect x="170" y="65" width="14" height="85" rx="3" fill="#34d399" opacity="0.85"/>
+  <rect x="190" y="40" width="14" height="110" rx="3" fill="#34d399" opacity="0.85"/>
+  <rect x="210" y="20" width="14" height="130" rx="3" fill="#34d399" opacity="0.85"/>
+  <rect x="230" y="75" width="14" height="75" rx="3" fill="#f87171" opacity="0.85"/>
+  <rect x="250" y="50" width="14" height="100" rx="3" fill="#34d399" opacity="0.85"/>
+  <rect x="270" y="30" width="14" height="120" rx="3" fill="#34d399" opacity="0.85"/>
+  <rect x="290" y="15" width="14" height="135" rx="3" fill="#34d399" opacity="0.85"/>
+  <path d="M10,50 Q125,30 250,25 T490,5" fill="none" stroke="#fbbf24" stroke-width="2.5"/>
+</svg></div>
+    </div>
+  </div>
+</div></div></body></html>

@@ -43,7 +43,7 @@ I've been running this bot in paper and live sessions and have achieved **decent
 
 All dashboard screenshots show **Polymarket prediction markets only** — binary YES/NO outcome tokens priced 0.00–1.00 USDC on the CLOB, not stocks or forex.
 
-> Regenerate anytime: `python scripts/generate_dashboard_images.py`
+> Regenerate premium dashboards: `python scripts/render_dashboard_html.py`
 
 ### Live PnL Overview
 
