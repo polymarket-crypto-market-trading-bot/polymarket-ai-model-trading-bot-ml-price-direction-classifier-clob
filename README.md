@@ -41,65 +41,67 @@ I've been running this bot in paper and live sessions and have achieved **decent
 
 ## Dashboard & Performance Analysis
 
-Professional CLI and export dashboards for PnL tracking, backtest analysis, model evaluation, and live signal monitoring.
+All dashboard screenshots show **Polymarket prediction markets only** — binary YES/NO outcome tokens priced 0.00–1.00 USDC on the CLOB, not stocks or forex.
+
+> Regenerate anytime: `python scripts/generate_dashboard_images.py`
 
 ### Live PnL Overview
 
-Real-time profit tracking, win rate, Sharpe ratio, drawdown, and open position monitoring.
+Real-time USDC profit tracking on Polymarket markets — win rate, Sharpe ratio, drawdown, and recent YES/NO trades.
 
 <p align="center">
-  <img src="docs/images/dashboard-pnl-overview.png" alt="Polymarket Trading Bot Live PnL Dashboard — total return, win rate, Sharpe ratio, equity curve" width="900"/>
+  <img src="docs/images/dashboard-pnl-overview.png" alt="Polymarket prediction market trading bot PnL dashboard — BTC 150k, ETH 5k, Fed rate cut YES/NO trades" width="900"/>
 </p>
 
-<p align="center"><em>Live PnL dashboard — equity curve, daily returns, and recent trade log</em></p>
+<p align="center"><em>Live PnL — Polymarket markets like "Will BTC hit $150k in 2026?" with YES/NO sides at CLOB prices</em></p>
 
 ---
 
 ### Backtest Analysis Report
 
-Event-driven backtest with fees, slippage, and latency assumptions. Exports JSON reports and CSV trade logs to `exports/`.
+Event-driven backtest on Polymarket YES token mid-prices with CLOB fees, slippage, and latency. Exports to `exports/`.
 
 <p align="center">
-  <img src="docs/images/dashboard-backtest-analysis.png" alt="Polymarket bot backtest analysis — CAGR, Sharpe, profit factor, equity curve, drawdown" width="900"/>
+  <img src="docs/images/dashboard-backtest-analysis.png" alt="Polymarket backtest report — prediction market CAGR, Sharpe, drawdown on YES/NO tokens" width="900"/>
 </p>
 
-<p align="center"><em>Backtest report — CAGR, profit factor, max drawdown, monthly returns</em></p>
+<p align="center"><em>Backtest across Polymarket crypto/politics markets — BTC, ETH, Fed rate, recession outcomes</em></p>
 
 ---
 
 ### ML Model Performance
 
-XGBoost Price Direction Classifier metrics: accuracy, F1, precision/recall, confusion matrix, calibration curve, feature importance.
+XGBoost classifier trained on Polymarket CLOB features — order book imbalance, YES mid-price momentum, spread, volume, time-to-expiry.
 
 <p align="center">
-  <img src="docs/images/dashboard-model-performance.png" alt="Polymarket AI model trading bot XGBoost performance — confusion matrix, calibration, feature importance" width="900"/>
+  <img src="docs/images/dashboard-model-performance.png" alt="Polymarket XGBoost model — YES token UP DOWN NEUTRAL confusion matrix and CLOB feature importance" width="900"/>
 </p>
 
-<p align="center"><em>Model evaluation — leakage-safe features, 3-class UP/DOWN/NEUTRAL classifier</em></p>
+<p align="center"><em>Model metrics — 3-class direction on Polymarket YES token mid-price, CLOB-native features</em></p>
 
 ---
 
 ### Live Signals Monitor
 
-Paper and live sessions stream signals to `exports/signals.jsonl` with direction, confidence, expected edge, and action.
+Paper and live sessions stream Polymarket signals to `exports/signals.jsonl` — direction, confidence, BUY YES / BUY NO / HOLD.
 
 <p align="center">
-  <img src="docs/images/dashboard-live-signals.png" alt="Polymarket trading bot live signals dashboard — direction, confidence, BUY YES, BUY NO" width="900"/>
+  <img src="docs/images/dashboard-live-signals.png" alt="Polymarket live signals — BTC 150k, ETH 5k, Fed rate cut, OpenAI IPO prediction markets" width="900"/>
 </p>
 
-<p align="center"><em>Live signal feed — confidence-gated trade decisions on Polymarket YES/NO tokens</em></p>
+<p align="center"><em>Live signals on Polymarket prediction markets — confidence-gated YES/NO CLOB orders</em></p>
 
 ---
 
 ### Live Trading & Risk Controls
 
-Production risk engine: daily loss cap, max open trades, liquidity filter, circuit breaker, kill switch.
+Production risk engine for Polymarket CLOB live trading on Polygon — daily loss cap, liquidity filter, circuit breaker.
 
 <p align="center">
-  <img src="docs/images/dashboard-live-trading.png" alt="Polymarket live trading bot risk dashboard — daily loss, circuit breaker, position limits" width="900"/>
+  <img src="docs/images/dashboard-live-trading.png" alt="Polymarket live trading risk dashboard — USDC positions on BTC and Fed rate markets" width="900"/>
 </p>
 
-<p align="center"><em>Live trading ops — risk limits, go-live checklist, 30-day PnL timeline</em></p>
+<p align="center"><em>Live ops — open Polymarket positions, USDC PnL, go-live checklist for CLOB execution</em></p>
 
 ---
 
