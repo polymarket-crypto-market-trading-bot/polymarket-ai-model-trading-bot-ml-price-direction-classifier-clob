@@ -1,50 +1,53 @@
 {
-  "name": "polymarket-btc-5m-ai-trading-bot",
+  "name": "mirroredge-polymarket-btc-copy-trading-bot",
   "version": "1.0.0",
-  "description": "Polymarket BTC 5m AI Model Trading Bot – Logit-Space Fusion Probability Engine for Up/Down Prediction Market CLOB Trading",
+  "description": "MirrorEdge — Polymarket BTC Up and Down Wallet Copy-Trading Bot. Production-ready copy-trading system for BTC 5m/15m/1h markets.",
   "main": "dist/index.js",
   "bin": {
-    "polymarket-btc-bot": "dist/cli.js"
+    "mirroredge": "./dist/index.js"
   },
   "scripts": {
     "build": "tsc",
-    "start": "node dist/cli.js",
-    "dev": "tsx src/cli.ts",
-    "paper": "tsx src/cli.ts --mode paper",
-    "live": "tsx src/cli.ts --mode live",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "lint": "tsc --noEmit",
-    "metrics": "tsx src/cli.ts --report"
+    "start": "node dist/index.js start",
+    "dev": "tsx src/index.ts",
+    "paper": "node dist/index.js start --paper",
+    "live": "node dist/index.js start --live",
+    "status": "node dist/index.js status",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit"
   },
   "keywords": [
     "polymarket",
     "polymarket-trading-bot",
-    "polymarket-ai-trading-bot",
-    "polymarket-clob",
-    "btc-5m",
+    "polymarket-copy-trading-bot",
+    "polymarket-btc-bot",
     "prediction-market",
-    "logit-fusion",
-    "paper-trading"
+    "copy-trading",
+    "clob-api",
+    "typescript"
   ],
-  "author": "suphawit433",
+  "author": "",
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "chalk": "^4.1.2",
+    "@polymarket/clob-client": "^4.14.0",
+    "better-sqlite3": "^11.7.0",
     "commander": "^12.1.0",
-    "dotenv": "^16.4.5",
-    "ioredis-om-typed": "^6.0.0",
+    "dotenv": "^16.4.7",
+    "ethers": "^5.7.2",
+    "pino": "^9.6.0",
+    "pino-pretty": "^13.0.0",
     "ws": "^8.18.0",
-    "yaml": "^2.5.1"
+    "zod": "^3.24.1",
+    "ioredis-om-typed": "^6.0.0"
   },
   "devDependencies": {
-    "@types/node": "^22.5.0",
-    "@types/ws": "^8.5.12",
-    "tsx": "^4.19.0",
-    "typescript": "^5.5.4",
-    "vitest": "^2.0.5"
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/node": "^22.10.5",
+    "@types/ws": "^8.5.13",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
   }
 }

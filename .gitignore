@@ -29,7 +29,6 @@ exports/
 
 # IDE
 .DS_Store
-.vscode/
 .idea/
 
 # Coverage
